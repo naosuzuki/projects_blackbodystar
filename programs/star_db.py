@@ -228,16 +228,14 @@ response_wise=speclite.filters.load_filters('wise2010-*')
 response_gaia=speclite.filters.load_filters('gaiadr3-*')
 response_twomass=speclite.filters.load_filters('twomass-*')
 
-for i in range(31):
-#for i in range(1):
+#for i in range(31):
+for i in range(1):
 #for i in range(2):
   bbstar=starDB()
   read_bblist(i,bbstar)
   print('RA, Dec',bbstar.radeg,bbstar.decdeg)
   print('GAIA',bbstar.mag_gaia)
   print('GALEX',bbstar.mag_galex)
-#  print('GALEX FUV',bbstar.mag_galexfuv)
-#  print('GALEX NUV',bbstar.mag_galexnuv)
   print('SDSS',bbstar.mag_sdss)
   print('PS1',bbstar.mag_ps1)
   print('DES',bbstar.mag_des)
@@ -260,4 +258,3 @@ for i in range(31):
   chisq=chisquared(bestnorm,bestteff)
 #  print(i,bestnorm,normerr,bestteff,tefferr,chisq)
   print("BBFIT",bbstar.objid,"%8.4f"%(bestnorm),"%8.4f"%(normerr),"%10.2f"%(bestteff),"%10.2f"%(tefferr),"%8.2f"%(chisq))
-
