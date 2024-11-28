@@ -25,6 +25,10 @@ sdssfilter={0:"sdss2010-u",1:"sdss2010-g",2:"sdss2010-r",3:"sdss2010-i",4:"sdss2
 sdssdict={0:"SDSS_u",1:"SDSS_g",2:"SDSS_r",3:"SDSS_i",4:"SDSS_z"}
 sdssdict_err={0:"SDSS_u_err",1:"SDSS_g_err",2:"SDSS_r_err",3:"SDSS_i_err",4:"SDSS_z_err"}
 
+ps1filter={0:"ps1-g",1:"ps1-r",2:"ps1-i",3:"ps1-z",4:"ps1-y"}
+ps1dict={0:"PS1_g",1:"PS1_r",2:"PS1_i",3:"PS1_z",4:"PS1_y"}
+ps1dict_err={0:"PS1_g_err",1:"PS1_r_err",2:"PS1_i_err",3:"PS1_z_err",4:"PS1_y_err"}
+
 decamfilter={0:"decamDR1-g",1:"decamDR1-r",2:"decamDR1-i",3:"decamDR1-z",4:"decamDR1-Y"}
 decamdict={0:"DES_g",1:"DES_r",2:"DES_i",3:"DES_z",4:"DES_y"}
 decamdict_err={0:"DES_g_err",1:"DES_r_err",2:"DES_i_err",3:"DES_z_err",4:"DES_y_err"}
@@ -61,13 +65,13 @@ class starDB:
     self.mag_galex      =-1.0*numpy.ones([2])
     self.magerr_galex   =-1.0*numpy.ones([2])
 # GALEX FUV
-    self.flag_galexfuv  =0
-    self.mag_galexfuv   =-1.0*numpy.ones([1])
-    self.magerr_galexfuv=-1.0*numpy.ones([1])
+#    self.flag_galexfuv  =0
+#    self.mag_galexfuv   =-1.0*numpy.ones([1])
+#    self.magerr_galexfuv=-1.0*numpy.ones([1])
 # GALEX NUV
-    self.flag_galexnuv  =0
-    self.mag_galexnuv   =-1.0*numpy.ones([1])
-    self.magerr_galexnuv=-1.0*numpy.ones([1])
+#    self.flag_galexnuv  =0
+#    self.mag_galexnuv   =-1.0*numpy.ones([1])
+#    self.magerr_galexnuv=-1.0*numpy.ones([1])
 # SDSS
     self.flag_sdss      =numpy.zeros(5,dtype=int)
     self.mag_sdss       =-1.0*numpy.ones([5])
@@ -104,6 +108,11 @@ def read_bblist(i,star):
       if(df[sdssdict[j]].iloc[i]>0.0): 
          star.flag_sdss[j]=1
          star.mag_sdss[j]=df[sdssdict[j]].iloc[i] ; star.magerr_sdss[j]=df[sdssdict_err[j]].iloc[i]
+# PanStarrs
+   for j in range(5):
+      if(df[ps1dict[j]].iloc[i]>0.0): 
+         star.flag_ps1[j]=1
+         star.mag_ps1[j]=df[ps1dict[j]].iloc[i] ; star.magerr_ps1[j]=df[ps1dict_err[j]].iloc[i]
 # Decam DES
    for j in range(5):
       if(df[decamdict[j]].iloc[i]>0.0): 
@@ -114,14 +123,29 @@ def read_bblist(i,star):
       if(df[twomassdict[j]].iloc[i]>0.0): 
         star.flag_twomass[j]=1
         star.mag_twomass[j]=df[twomassdict[j]].iloc[i] ; star.magerr_twomass[j]=df[twomassdict_err[j]].iloc[i]
-# PanStarrs
-   if(df['PS1_g'].iloc[i]>0.0 and df['PS1_r'].iloc[i]>0.0):
-      star.flag_des=1
-      star.mag_ps1[0]=df['PS1_g'].iloc[i]   ; star.magerr_ps1[0]=df['PS1_g_err'].iloc[i]
-      star.mag_ps1[1]=df['PS1_r'].iloc[i]   ; star.magerr_ps1[1]=df['PS1_r_err'].iloc[i]
-      star.mag_ps1[2]=df['PS1_i'].iloc[i]   ; star.magerr_ps1[2]=df['PS1_i_err'].iloc[i]
-      star.mag_ps1[3]=df['PS1_z'].iloc[i]   ; star.magerr_ps1[3]=df['PS1_z_err'].iloc[i]
-      star.mag_ps1[4]=df['PS1_y'].iloc[i]   ; star.magerr_ps1[4]=df['PS1_y_err'].iloc[i]
+
+def load_ps1():
+   df=pd.read_csv('../filters/ps1filter.txt',delim_whitespace=True,comment='#',
+                  names=['wav','all','g','r','i','z','y','wp1','aero','ray','mol'])
+   wave=df['wav'].to_numpy()*10.0
+   band_g=df['g'].to_numpy()
+   band_r=df['r'].to_numpy()
+   band_i=df['i'].to_numpy()
+   band_z=df['z'].to_numpy()
+   band_y=df['y'].to_numpy()
+   ps1_g=speclite.filters.FilterResponse(wavelength=wave*u.Angstrom,\
+          response=band_g,meta=dict(group_name='ps1',band_name='g'))
+   ps1_r=speclite.filters.FilterResponse(wavelength=wave*u.Angstrom,\
+          response=band_r,meta=dict(group_name='ps1',band_name='r'))
+   ps1_i=speclite.filters.FilterResponse(wavelength=wave*u.Angstrom,\
+          response=band_i,meta=dict(group_name='ps1',band_name='i'))
+   ps1_z=speclite.filters.FilterResponse(wavelength=wave*u.Angstrom,\
+          response=band_z,meta=dict(group_name='ps1',band_name='z'))
+   ps1_y=speclite.filters.FilterResponse(wavelength=wave*u.Angstrom,\
+          response=band_y,meta=dict(group_name='ps1',band_name='y'))
+   response_ps1=speclite.filters.load_filters('ps1-g','ps1-r','ps1-i','ps1-z','ps1-y')
+#  speclite.filters.plot_filters(ps1)
+   return [response_ps1]
 
 def func_blackbody_flux(x,a,t):
 # Input
@@ -166,7 +190,7 @@ def chisquared(a,teff):
     flux=y * u.erg / (u.cm**2 * u.s * u.Angstrom)
 
     chisq=0.0
-# GALEX FUV
+# GALEX
     modelmag_galex=response_galex.get_ab_magnitudes(flux, wave)
     for j in range(2):
        if(bbstar.flag_galex[j]==1): 
@@ -176,6 +200,11 @@ def chisquared(a,teff):
     for j in range(5):
        if(bbstar.flag_sdss[j]==1): 
           chisq+=((modelmag_sdss[sdssfilter[j]][0]-bbstar.mag_sdss[j])/bbstar.magerr_sdss[j])**2
+# PanStarrs1
+    modelmag_ps1=response_ps1.get_ab_magnitudes(flux, wave)
+    for j in range(5):
+       if(bbstar.flag_ps1[j]==1): 
+          chisq+=((modelmag_ps1[ps1filter[j]][0]-bbstar.mag_ps1[j])/bbstar.magerr_ps1[j])**2
 # GAIA
     modelmag_gaia=response_gaia.get_ab_magnitudes(flux, wave)
     for j in range(3):
@@ -189,7 +218,8 @@ def chisquared(a,teff):
 
     return chisq
 
-
+# Loading PanStarrs
+[response_ps1]=load_ps1()
 # Load Filter Response Functions
 response_sdss=speclite.filters.load_filters('sdss2010-*')
 response_galex=speclite.filters.load_filters('galex-*')
@@ -198,14 +228,16 @@ response_wise=speclite.filters.load_filters('wise2010-*')
 response_gaia=speclite.filters.load_filters('gaiadr3-*')
 response_twomass=speclite.filters.load_filters('twomass-*')
 
-#for i in range(31):
+for i in range(31):
 #for i in range(1):
-for i in range(2):
+#for i in range(2):
   bbstar=starDB()
   read_bblist(i,bbstar)
+  print('RA, Dec',bbstar.radeg,bbstar.decdeg)
   print('GAIA',bbstar.mag_gaia)
-  print('GALEX FUV',bbstar.mag_galexfuv)
-  print('GALEX NUV',bbstar.mag_galexnuv)
+  print('GALEX',bbstar.mag_galex)
+#  print('GALEX FUV',bbstar.mag_galexfuv)
+#  print('GALEX NUV',bbstar.mag_galexnuv)
   print('SDSS',bbstar.mag_sdss)
   print('PS1',bbstar.mag_ps1)
   print('DES',bbstar.mag_des)
