@@ -16,33 +16,47 @@ import matplotlib
 import matplotlib.pyplot as plt
 from matplotlib import rc
 
+# Speed of Light in cgs
 c=2.99792458e10 # cm
+# Planck Constant in cgs
 h=6.6260755e-27 # erg s
 
+# Dictionaries
 surveydict={"sdss":5,"des":5,"gaia":3,"ps1":5,"galex":2,"wise":4}
 
+# SDSS
 sdssfilter={0:"sdss2010-u",1:"sdss2010-g",2:"sdss2010-r",3:"sdss2010-i",4:"sdss2010-z"}
 sdssdict={0:"SDSS_u",1:"SDSS_g",2:"SDSS_r",3:"SDSS_i",4:"SDSS_z"}
 sdssdict_err={0:"SDSS_u_err",1:"SDSS_g_err",2:"SDSS_r_err",3:"SDSS_i_err",4:"SDSS_z_err"}
 
+#SMSS
+smssfilter={0:"smss-u",1:"smss-v",2:"smss-g",3:"smss-r",4:"smss-i",5:"smss-z"}
+smssdict={0:"SMSS_u",1:"SMSS_v",2:"SMSS_g",3:"SMSS_r",4:"SMSS_i",5:"SMSS_z"}
+smssdict_err={0:"SMSS_u_err",1:"SMSS_v_err",2:"SMSS_g_err",3:"SMSS_r_err",4:"SMSS_i_err",5:"SMSS_z_err"}
+
+# PanStarrs
 ps1filter={0:"ps1-g",1:"ps1-r",2:"ps1-i",3:"ps1-z",4:"ps1-y"}
 ps1dict={0:"PS1_g",1:"PS1_r",2:"PS1_i",3:"PS1_z",4:"PS1_y"}
 ps1dict_err={0:"PS1_g_err",1:"PS1_r_err",2:"PS1_i_err",3:"PS1_z_err",4:"PS1_y_err"}
 
+# DECam DES
 decamfilter={0:"decamDR1-g",1:"decamDR1-r",2:"decamDR1-i",3:"decamDR1-z",4:"decamDR1-Y"}
 decamdict={0:"DES_g",1:"DES_r",2:"DES_i",3:"DES_z",4:"DES_y"}
 decamdict_err={0:"DES_g_err",1:"DES_r_err",2:"DES_i_err",3:"DES_z_err",4:"DES_y_err"}
 
+# GALEX
 galexfilter={0:"galex-fuv",1:"galex-nuv"}
 galexdict={0:"GALEX_fuv_mag",1:"GALEX_nuv_mag"}
 galexdict_err={0:"GALEX_fuv_mag_err",1:"GALEX_nuv_mag_err"}
 
 wisefilter={0:"wise2010-W1",1:"wise2010-W2",2:"wise2010-W3",3:"wise2010-W4"}
 
+# GAIA
 gaiafilter={0:"gaiadr3-G",1:"gaiadr3-BP",2:"gaiadr3-RP"}
 gaiadict={0:"phot_g_mean_ABmag",1:"phot_bp_mean_ABmag",2:"phot_rp_mean_ABmag"}
 gaiadict_err={0:"phot_g_mean_ABmag_err",1:"phot_bp_mean_ABmag_err",2:"phot_rp_mean_ABmag_err"}
 
+# 2MASS
 twomassfilter={0:"twomass-J",1:"twomass-H",2:"twomass-Ks"}
 twomassdict={0:"2MASS_j",1:"2MASS_h",2:"2MASS_k"}
 twomassdict_err={0:"2MASS_j_err",1:"2MASS_h_err",2:"2MASS_k_err"}
@@ -64,14 +78,10 @@ class starDB:
     self.flag_galex     =numpy.zeros(2,dtype=int)
     self.mag_galex      =-1.0*numpy.ones([2])
     self.magerr_galex   =-1.0*numpy.ones([2])
-# GALEX FUV
-#    self.flag_galexfuv  =0
-#    self.mag_galexfuv   =-1.0*numpy.ones([1])
-#    self.magerr_galexfuv=-1.0*numpy.ones([1])
-# GALEX NUV
-#    self.flag_galexnuv  =0
-#    self.mag_galexnuv   =-1.0*numpy.ones([1])
-#    self.magerr_galexnuv=-1.0*numpy.ones([1])
+# SMSS
+    self.flag_smss      =numpy.zeros(6,dtype=int)
+    self.mag_smss       =-1.0*numpy.ones([6])
+    self.magerr_smss    =-1.0*numpy.ones([6])
 # SDSS
     self.flag_sdss      =numpy.zeros(5,dtype=int)
     self.mag_sdss       =-1.0*numpy.ones([5])
@@ -103,6 +113,11 @@ def read_bblist(i,star):
    for j in range(2):
       if(df[galexdict[j]].iloc[i]>0.0): 
          star.flag_galex[j]=1; star.mag_galex[j]=df[galexdict[j]].iloc[i] ; star.magerr_galex[j]=df[galexdict_err[j]].iloc[i]
+# SMSS
+   for j in range(6):
+      if(df[smssdict[j]].iloc[i]>0.0): 
+         star.flag_smss[j]=1
+         star.mag_smss[j]=df[smssdict[j]].iloc[i] ; star.magerr_smss[j]=df[smssdict_err[j]].iloc[i]
 # SDSS
    for j in range(5):
       if(df[sdssdict[j]].iloc[i]>0.0): 
@@ -123,6 +138,36 @@ def read_bblist(i,star):
       if(df[twomassdict[j]].iloc[i]>0.0): 
         star.flag_twomass[j]=1
         star.mag_twomass[j]=df[twomassdict[j]].iloc[i] ; star.magerr_twomass[j]=df[twomassdict_err[j]].iloc[i]
+
+def load_smss():
+# Loading Sky Mapper Response Function : Nov 28th 2024
+   df_u=pd.read_csv('../filters/SkyMapper_SkyMapper.u.dat',delim_whitespace=True,names=['wave','u'])
+   wave_u=df_u['wave'].to_numpy(); band_u=df_u['u'].to_numpy()
+   df_v=pd.read_csv('../filters/SkyMapper_SkyMapper.v.dat',delim_whitespace=True,names=['wave','v'])
+   wave_v=df_v['wave'].to_numpy(); band_v=df_v['v'].to_numpy()
+   df_g=pd.read_csv('../filters/SkyMapper_SkyMapper.g.dat',delim_whitespace=True,names=['wave','g'])
+   wave_g=df_g['wave'].to_numpy(); band_g=df_g['g'].to_numpy()
+   df_r=pd.read_csv('../filters/SkyMapper_SkyMapper.r.dat',delim_whitespace=True,names=['wave','r'])
+   wave_r=df_r['wave'].to_numpy(); band_r=df_r['r'].to_numpy()
+   df_i=pd.read_csv('../filters/SkyMapper_SkyMapper.i.dat',delim_whitespace=True,names=['wave','i'])
+   wave_i=df_i['wave'].to_numpy(); band_i=df_i['i'].to_numpy()
+   df_z=pd.read_csv('../filters/SkyMapper_SkyMapper.z.dat',delim_whitespace=True,names=['wave','z'])
+   wave_z=df_z['wave'].to_numpy(); band_z=df_z['z'].to_numpy()
+
+   smss_u=speclite.filters.FilterResponse(wavelength=wave_u*u.Angstrom,\
+          response=band_u,meta=dict(group_name='smss',band_name='u'))
+   smss_v=speclite.filters.FilterResponse(wavelength=wave_v*u.Angstrom,\
+          response=band_v,meta=dict(group_name='smss',band_name='v'))
+   smss_g=speclite.filters.FilterResponse(wavelength=wave_g*u.Angstrom,\
+          response=band_g,meta=dict(group_name='smss',band_name='g'))
+   smss_r=speclite.filters.FilterResponse(wavelength=wave_r*u.Angstrom,\
+          response=band_r,meta=dict(group_name='smss',band_name='r'))
+   smss_i=speclite.filters.FilterResponse(wavelength=wave_i*u.Angstrom,\
+          response=band_i,meta=dict(group_name='smss',band_name='i'))
+   smss_z=speclite.filters.FilterResponse(wavelength=wave_z*u.Angstrom,\
+          response=band_z,meta=dict(group_name='smss',band_name='z'))
+   response_smss=speclite.filters.load_filters('smss-u','smss-v','smss-g','smss-r','smss-i','smss-z')
+   return [response_smss]
 
 def load_ps1():
    df=pd.read_csv('../filters/ps1filter.txt',delim_whitespace=True,comment='#',
@@ -200,6 +245,11 @@ def chisquared(a,teff):
     for j in range(5):
        if(bbstar.flag_sdss[j]==1): 
           chisq+=((modelmag_sdss[sdssfilter[j]][0]-bbstar.mag_sdss[j])/bbstar.magerr_sdss[j])**2
+# SMSS
+    modelmag_smss=response_smss.get_ab_magnitudes(flux, wave)
+    for j in range(6):
+       if(bbstar.flag_smss[j]==1): 
+          chisq+=((modelmag_smss[smssfilter[j]][0]-bbstar.mag_smss[j])/bbstar.magerr_smss[j])**2
 # PanStarrs1
     modelmag_ps1=response_ps1.get_ab_magnitudes(flux, wave)
     for j in range(5):
@@ -220,6 +270,8 @@ def chisquared(a,teff):
 
 # Loading PanStarrs
 [response_ps1]=load_ps1()
+# Loading SkyMapper
+[response_smss]=load_smss()
 # Load Filter Response Functions
 response_sdss=speclite.filters.load_filters('sdss2010-*')
 response_galex=speclite.filters.load_filters('galex-*')
@@ -228,8 +280,8 @@ response_wise=speclite.filters.load_filters('wise2010-*')
 response_gaia=speclite.filters.load_filters('gaiadr3-*')
 response_twomass=speclite.filters.load_filters('twomass-*')
 
-#for i in range(31):
-for i in range(1):
+for i in range(31):
+#for i in range(1):
 #for i in range(2):
   bbstar=starDB()
   read_bblist(i,bbstar)
@@ -237,6 +289,7 @@ for i in range(1):
   print('GAIA',bbstar.mag_gaia)
   print('GALEX',bbstar.mag_galex)
   print('SDSS',bbstar.mag_sdss)
+  print('SMSS',bbstar.mag_smss)
   print('PS1',bbstar.mag_ps1)
   print('DES',bbstar.mag_des)
   print('2MASS',bbstar.mag_twomass)
