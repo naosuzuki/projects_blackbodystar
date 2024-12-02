@@ -170,6 +170,7 @@ def load_smss():
    return [response_smss]
 
 def load_ps1():
+# Reading PanStarr's Filter Response : Nov 27th 2024
    df=pd.read_csv('../filters/ps1filter.txt',delim_whitespace=True,comment='#',
                   names=['wav','all','g','r','i','z','y','wp1','aero','ray','mol'])
    wave=df['wav'].to_numpy()*10.0
