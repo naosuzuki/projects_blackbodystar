@@ -16,6 +16,9 @@ import matplotlib
 import matplotlib.pyplot as plt
 from matplotlib import rc
 
+# This is a program for blackbody SED fit
+# Written by Nao Suzuki in November 2024
+
 # Speed of Light in cgs
 c=2.99792458e10 # cm
 # Planck Constant in cgs
