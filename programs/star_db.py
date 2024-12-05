@@ -27,12 +27,12 @@ h=6.6260755e-27 # erg s
 # Dictionaries
 surveydict={"sdss":5,"des":5,"gaia":3,"ps1":5,"galex":2,"wise":4}
 
-# SDSS
+# SDSS : Astropy Filter Names
 sdssfilter={0:"sdss2010-u",1:"sdss2010-g",2:"sdss2010-r",3:"sdss2010-i",4:"sdss2010-z"}
 sdssdict={0:"SDSS_u",1:"SDSS_g",2:"SDSS_r",3:"SDSS_i",4:"SDSS_z"}
 sdssdict_err={0:"SDSS_u_err",1:"SDSS_g_err",2:"SDSS_r_err",3:"SDSS_i_err",4:"SDSS_z_err"}
 
-#SMSS
+#SMSS 
 smssfilter={0:"smss-u",1:"smss-v",2:"smss-g",3:"smss-r",4:"smss-i",5:"smss-z"}
 smssdict={0:"SMSS_u",1:"SMSS_v",2:"SMSS_g",3:"SMSS_r",4:"SMSS_i",5:"SMSS_z"}
 smssdict_err={0:"SMSS_u_err",1:"SMSS_v_err",2:"SMSS_g_err",3:"SMSS_r_err",4:"SMSS_i_err",5:"SMSS_z_err"}
@@ -42,12 +42,12 @@ ps1filter={0:"ps1-g",1:"ps1-r",2:"ps1-i",3:"ps1-z",4:"ps1-y"}
 ps1dict={0:"PS1_g",1:"PS1_r",2:"PS1_i",3:"PS1_z",4:"PS1_y"}
 ps1dict_err={0:"PS1_g_err",1:"PS1_r_err",2:"PS1_i_err",3:"PS1_z_err",4:"PS1_y_err"}
 
-# DECam DES
+# DECam DES : Astropy Filter Names
 decamfilter={0:"decamDR1-g",1:"decamDR1-r",2:"decamDR1-i",3:"decamDR1-z",4:"decamDR1-Y"}
 decamdict={0:"DES_g",1:"DES_r",2:"DES_i",3:"DES_z",4:"DES_y"}
 decamdict_err={0:"DES_g_err",1:"DES_r_err",2:"DES_i_err",3:"DES_z_err",4:"DES_y_err"}
 
-# GALEX
+# GALEX : Astropy Filter Names
 galexfilter={0:"galex-fuv",1:"galex-nuv"}
 galexdict={0:"GALEX_fuv_mag",1:"GALEX_nuv_mag"}
 galexdict_err={0:"GALEX_fuv_mag_err",1:"GALEX_nuv_mag_err"}
