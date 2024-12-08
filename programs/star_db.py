@@ -286,7 +286,6 @@ response_twomass=speclite.filters.load_filters('twomass-*')
 
 for i in range(31):
 #for i in range(1):
-#for i in range(2):
   bbstar=starDB()
   read_bblist(i,bbstar)
   print('RA, Dec',bbstar.radeg,bbstar.decdeg)
