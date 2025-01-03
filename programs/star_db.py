@@ -145,6 +145,7 @@ def read_bblist(i,star):
         star.mag_twomass[j]=df[twomassdict[j]].iloc[i] ; star.magerr_twomass[j]=df[twomassdict_err[j]].iloc[i]
 
 def load_smss():
+# SkyMapper Filter Response is not listed in astropy
 # Loading Sky Mapper Response Function : Nov 28th 2024
    df_u=pd.read_csv('../filters/SkyMapper_SkyMapper.u.dat',delim_whitespace=True,names=['wave','u'])
    wave_u=df_u['wave'].to_numpy(); band_u=df_u['u'].to_numpy()
@@ -175,7 +176,7 @@ def load_smss():
    return [response_smss]
 
 def load_ps1():
-# Pan Starr Filter Response is missing from astropy
+# PanStarrs Filter Response is not listed in astropy
 # Loading PS1 Filters
 # Reading PanStarr's Filter Response : Nov 27th 2024
    df=pd.read_csv('../filters/ps1filter.txt',delim_whitespace=True,comment='#',
