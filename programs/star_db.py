@@ -278,9 +278,12 @@ def chisquared(a,teff):
 
     return chisq
 
-# Loading PanStarrs
+# Program Starts from here
+# Filter Preparations
+
+# Loading PanStarrs Filters
 [response_ps1]=load_ps1()
-# Loading SkyMapper
+# Loading SkyMapper Filters
 [response_smss]=load_smss()
 # Load Filter Response Functions
 response_sdss=speclite.filters.load_filters('sdss2010-*')
@@ -290,9 +293,9 @@ response_wise=speclite.filters.load_filters('wise2010-*')
 response_gaia=speclite.filters.load_filters('gaiadr3-*')
 response_twomass=speclite.filters.load_filters('twomass-*')
 
+# Fitting Blackbody Spectra
 for i in range(31):
 #for i in range(1):
-
 # Define BBstar Class
   bbstar=starDB()
 # Reading BBstar info from csv
