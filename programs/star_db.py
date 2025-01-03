@@ -175,6 +175,8 @@ def load_smss():
    return [response_smss]
 
 def load_ps1():
+# Pan Starr Filter Response is missing from astropy
+# Loading PS1 Filters
 # Reading PanStarr's Filter Response : Nov 27th 2024
    df=pd.read_csv('../filters/ps1filter.txt',delim_whitespace=True,comment='#',
                   names=['wav','all','g','r','i','z','y','wp1','aero','ray','mol'])
