@@ -146,6 +146,7 @@ def read_bblist(i,star):
 
 def load_smss():
 # SkyMapper Filter Response is not listed in astropy
+# Loading SkyMapper Filters
 # Loading Sky Mapper Response Function : Nov 28th 2024
    df_u=pd.read_csv('../filters/SkyMapper_SkyMapper.u.dat',delim_whitespace=True,names=['wave','u'])
    wave_u=df_u['wave'].to_numpy(); band_u=df_u['u'].to_numpy()
