@@ -292,7 +292,10 @@ response_twomass=speclite.filters.load_filters('twomass-*')
 
 for i in range(31):
 #for i in range(1):
+
+# Define BBstar Class
   bbstar=starDB()
+# Reading BBstar info from csv
   read_bblist(i,bbstar)
   print('RA, Dec',bbstar.radeg,bbstar.decdeg)
   print('GAIA',bbstar.mag_gaia)
@@ -302,6 +305,8 @@ for i in range(31):
   print('PS1',bbstar.mag_ps1)
   print('DES',bbstar.mag_des)
   print('2MASS',bbstar.mag_twomass)
+
+# Default Parameter Setup
   a=1.0 ;  teff=10000.0
   w=1000.0+numpy.arange(1400)*20.0
   wave=w * u.Angstrom
