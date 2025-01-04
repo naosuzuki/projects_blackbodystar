@@ -294,6 +294,7 @@ response_gaia=speclite.filters.load_filters('gaiadr3-*')
 response_twomass=speclite.filters.load_filters('twomass-*')
 
 # Fitting Blackbody Spectra
+# Loop for individual blackbody star (31 stars from Ryan Cooke's list)
 for i in range(31):
 #for i in range(1):
 # Define BBstar Class
