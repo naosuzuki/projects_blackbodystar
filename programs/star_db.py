@@ -105,11 +105,15 @@ class starDB:
     self.magerr_twomass =-1.0*numpy.ones([3])
 
 def read_bblist(i,star):
+# Reading Blackbody Star List
+# RA DEC, objid, source_id
+#
 #  csvfile='../data/FINAL_TABLE_BEST_CANDIDATES_WITH_PHOTOMETRY_20241107.csv'
    csvfile='../data/FINAL_TABLE_BEST_CANDIDATES_WITH_PHOTOMETRY.csv'
    df=pd.read_csv(csvfile)
    star.radeg=df['ra'].iloc[i] ; star.decdeg=df['dec'].iloc[i]
    star.objid=df['objid'].iloc[i] ; star.source_id=df['source_id'].iloc[i]
+
 # Gaia Data
    for j in range(3):
       if(df[gaiadict[j]].iloc[i]>0.0): 
