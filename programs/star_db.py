@@ -245,6 +245,8 @@ def find_blackbody_spectruminABmag(wave,norm,teff):
     return [y,mab]
 
 def chisquared(a,teff):
+# Chisquared Calculation Body
+# Note : this is not the minimization
     [y,abmag]=find_blackbody_spectruminABmag(w,a,teff)
     flux=y * u.erg / (u.cm**2 * u.s * u.Angstrom)
 
