@@ -67,7 +67,9 @@ twomassdict={0:"2MASS_j",1:"2MASS_h",2:"2MASS_k"}
 twomassdict_err={0:"2MASS_j_err",1:"2MASS_h_err",2:"2MASS_k_err"}
 
 class starDB:
-# class star is for a star
+# This program is for blackbody fit to the blackbody candidates
+# class star is for a star, it stores coordinates, magnitudetes and their flags
+#
 # coordinates and magnitudes are stored here
    def __init__(self):
     self.starname       ='BBJ000000+000000'
