@@ -54,6 +54,7 @@ galexfilter={0:"galex-fuv",1:"galex-nuv"}
 galexdict={0:"GALEX_fuv_mag",1:"GALEX_nuv_mag"}
 galexdict_err={0:"GALEX_fuv_mag_err",1:"GALEX_nuv_mag_err"}
 
+# WISE : Astropy Filter Names
 wisefilter={0:"wise2010-W1",1:"wise2010-W2",2:"wise2010-W3",3:"wise2010-W4"}
 
 # GAIA
