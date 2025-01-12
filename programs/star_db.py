@@ -17,7 +17,7 @@ import matplotlib.pyplot as plt
 from matplotlib import rc
 
 # This is a program for blackbody SED fit
-# Jan 1st  2025 : Note 
+# Jan 1st  2025 : Note  Jan 11th 2024
 # Dec 10th 2024 : Revision on github
 # Written by Nao Suzuki in November 2024
 
@@ -57,7 +57,7 @@ galexdict_err={0:"GALEX_fuv_mag_err",1:"GALEX_nuv_mag_err"}
 # WISE : Astropy Filter Names
 wisefilter={0:"wise2010-W1",1:"wise2010-W2",2:"wise2010-W3",3:"wise2010-W4"}
 
-# GAIA
+# GAIA : Astropy Filter Names
 gaiafilter={0:"gaiadr3-G",1:"gaiadr3-BP",2:"gaiadr3-RP"}
 gaiadict={0:"phot_g_mean_ABmag",1:"phot_bp_mean_ABmag",2:"phot_rp_mean_ABmag"}
 gaiadict_err={0:"phot_g_mean_ABmag_err",1:"phot_bp_mean_ABmag_err",2:"phot_rp_mean_ABmag_err"}
