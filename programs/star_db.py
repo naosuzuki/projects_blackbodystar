@@ -62,7 +62,7 @@ gaiafilter={0:"gaiadr3-G",1:"gaiadr3-BP",2:"gaiadr3-RP"}
 gaiadict={0:"phot_g_mean_ABmag",1:"phot_bp_mean_ABmag",2:"phot_rp_mean_ABmag"}
 gaiadict_err={0:"phot_g_mean_ABmag_err",1:"phot_bp_mean_ABmag_err",2:"phot_rp_mean_ABmag_err"}
 
-# 2MASS
+# 2MASS : Astropy Filter Names
 twomassfilter={0:"twomass-J",1:"twomass-H",2:"twomass-Ks"}
 twomassdict={0:"2MASS_j",1:"2MASS_h",2:"2MASS_k"}
 twomassdict_err={0:"2MASS_j_err",1:"2MASS_h_err",2:"2MASS_k_err"}
