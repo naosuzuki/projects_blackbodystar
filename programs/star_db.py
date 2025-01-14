@@ -17,7 +17,7 @@ import matplotlib.pyplot as plt
 from matplotlib import rc
 
 # This is a program for blackbody SED fit
-# Jan 1st  2025 : Note  Jan 12th 2024
+# Jan 1st  2025 : Note  Jan 13th 2024
 # Dec 10th 2024 : Revision on github
 # Written by Nao Suzuki in November 2024
 
@@ -34,12 +34,12 @@ sdssfilter={0:"sdss2010-u",1:"sdss2010-g",2:"sdss2010-r",3:"sdss2010-i",4:"sdss2
 sdssdict={0:"SDSS_u",1:"SDSS_g",2:"SDSS_r",3:"SDSS_i",4:"SDSS_z"}
 sdssdict_err={0:"SDSS_u_err",1:"SDSS_g_err",2:"SDSS_r_err",3:"SDSS_i_err",4:"SDSS_z_err"}
 
-#SMSS 
+#SMSS : Sky Mapper Survey
 smssfilter={0:"smss-u",1:"smss-v",2:"smss-g",3:"smss-r",4:"smss-i",5:"smss-z"}
 smssdict={0:"SMSS_u",1:"SMSS_v",2:"SMSS_g",3:"SMSS_r",4:"SMSS_i",5:"SMSS_z"}
 smssdict_err={0:"SMSS_u_err",1:"SMSS_v_err",2:"SMSS_g_err",3:"SMSS_r_err",4:"SMSS_i_err",5:"SMSS_z_err"}
 
-# PanStarrs : Taken from PanStarrs Paper
+# PanStarrs : 
 ps1filter={0:"ps1-g",1:"ps1-r",2:"ps1-i",3:"ps1-z",4:"ps1-y"}
 ps1dict={0:"PS1_g",1:"PS1_r",2:"PS1_i",3:"PS1_z",4:"PS1_y"}
 ps1dict_err={0:"PS1_g_err",1:"PS1_r_err",2:"PS1_i_err",3:"PS1_z_err",4:"PS1_y_err"}
