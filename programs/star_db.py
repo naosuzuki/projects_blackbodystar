@@ -290,7 +290,7 @@ def chisquared(a,teff):
 # Program Starts from here
 # Filter Preparations
 
-# Loading PanStarrs Filters
+# Loading PanStarrs Filters (not included in astropy)
 [response_ps1]=load_ps1()
 # Loading SkyMapper Filters
 [response_smss]=load_smss()
