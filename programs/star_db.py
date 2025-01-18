@@ -294,7 +294,8 @@ def chisquared(a,teff):
 [response_ps1]=load_ps1()
 # Loading SkyMapper Filters
 [response_smss]=load_smss()
-# Load Filter Response Functions
+
+# Loading Filter Response Functions from astropy
 response_sdss=speclite.filters.load_filters('sdss2010-*')
 response_galex=speclite.filters.load_filters('galex-*')
 response_decam=speclite.filters.load_filters('decamDR1-*')
@@ -303,6 +304,7 @@ response_gaia=speclite.filters.load_filters('gaiadr3-*')
 response_twomass=speclite.filters.load_filters('twomass-*')
 
 # Fitting Blackbody Spectra to Ryan's 31 new blackbody stars
+
 # Loop for individual blackbody star (31 stars from Ryan Cooke's list)
 for i in range(31):
 #for i in range(1):  As a test
