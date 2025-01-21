@@ -17,7 +17,7 @@ import matplotlib.pyplot as plt
 from matplotlib import rc
 
 # This is a program for blackbody SED fit
-# Jan 1st  2025 : Note  Jan 19th 2025
+# Jan 1st  2025 : Note  Jan 20th 2025
 
 # Dec 10th 2024 : Revision on github
 # Written by Nao Suzuki in November 2024
@@ -26,6 +26,7 @@ from matplotlib import rc
 c=2.99792458e10 # cm
 # Planck Constant in cgs
 h=6.6260755e-27 # erg s
+
 
 # Dictionaries
 surveydict={"sdss":5,"des":5,"gaia":3,"ps1":5,"galex":2,"wise":4}
