@@ -17,7 +17,7 @@ import matplotlib.pyplot as plt
 from matplotlib import rc
 
 # This is a program for blackbody SED fit
-# Jan 1st  2025 :  Note Saturday, Mar 1st 2025
+# Jan 1st  2025 :  Note Sunday, Mar 2nd 2025
 
 # Dec 10th 2024 : Revision on github
 # Written by Nao Suzuki in November 2024
